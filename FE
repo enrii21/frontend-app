@@ -1,0 +1,29 @@
+import React, { useState } from 'react';
+
+const RandomImageApp = () => {
+  const [imageUrl, setImageUrl] = useState('/api/placeholder/400/320');
+
+  const fetchRandomImage = async () => {
+    try {
+      const response = await fetch('/api/random-image');
+      const imageUrl = await response.url;
+      setImageUrl(imageUrl);
+    } catch (error) {
+      console.error('Errore durante il recupero dell\'immagine:', error);
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      <img src={imageUrl} alt="Immagine casuale" className="max-w-lg mb-4" />
+      <button
+        onClick={fetchRandomImage}
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Carica immagine casuale
+      </button>
+    </div>
+  );
+};
+
+export default RandomImageApp;
